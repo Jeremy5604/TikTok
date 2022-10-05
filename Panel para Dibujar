@@ -1,0 +1,77 @@
+/*Panel de dibujo hecho con JAVA*/
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import javax.swing.JPanel;
+import java.awt.Point;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import javax.swing.JLabel;
+
+public class PanelDibujo extends JPanel {
+
+    private int cuentaPuntos = 0;//Cuenta el número de puntos
+    private final JLabel indicador = new JLabel("Arratre el "
+            + "mouse para dibujar");
+
+    /*arreglo de 10000 referencias a java.awt.Point */
+    private Point puntos[] = new Point[10000];
+
+    /*Establece la GUI y registra el manejador de eventos del ratón*/
+    public PanelDibujo() {
+        addMouseMotionListener(new MouseMotionAdapter() {
+            /*Almacenar coordenadas de arrastre y vuelve a dibujar*/
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                if (cuentaPuntos < puntos.length) {
+                    puntos[cuentaPuntos] = e.getPoint();/*Retorna la cordenada 
+                    de arrastre en una milesima de segundo y la asigna 
+                    en un objeto Point*/
+                    cuentaPuntos++;
+                    repaint();/*vuelve a dibujar en el JPanel y en 
+                    el JFrame.En el libro dice que indica que el objeto JPanel
+                    debe actulizarse lo más pronto posible con una llamada al
+                    método paintComponent   */
+                }
+            }
+        }
+        );
+    }
+
+    /*Método paintComponent(Pertenece a la clase
+JComponent y usa la clase Graphics como parametro)
+Dibuja un ovalo en un cuadro delimitador de 4x4, en la ubicación
+especifica de la ventana*/
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);/*Borra el área de dibujo*/
+
+ /*dibuja todos los puntos en el arreglo */
+        for (int i = 0; i < cuentaPuntos; i++) {
+            g.fillOval(puntos[i].x, puntos[i].y, 16, 16);
+            /*fillOval significa llenarOvalo osea dibujar el punto de negro
+            width y theight representan cantidad de pixeles por largo y ancho 
+            de cada punto*/
+        }
+    }
+
+    
+/*NOTA: A medida que hago un punto se llama al método mouseDragged y
+luego al método paint component para dibujar el punto que se asigno
+al arreglo en el metodo mouseDraggedNota para un futuro: es facil pero parece
+complejo*/
+    
+    public static void main(String[] args) {
+        javax.swing.JFrame ventana = new javax.swing.JFrame("Un programa"
+                + " simple de dibujo");
+        PanelDibujo panel = new PanelDibujo();
+        ventana.add(panel, BorderLayout.CENTER);
+        ventana.add(panel.indicador, BorderLayout.SOUTH);
+        ventana.setVisible(true);
+        ventana.setDefaultCloseOperation(3);
+        ventana.setSize(800, 500);
+        Dimension pantalla = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        ventana.setLocation(pantalla.width / 2 - 400, pantalla.height / 2 - 400);
+    }
+
+}

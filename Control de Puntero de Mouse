@@ -1,0 +1,93 @@
+/*Sigueme en Instagram como @Jeremy_CA_ */
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseEvent;
+
+public class MarcoRastreadorRaton extends JFrame {
+
+    private final JPanel panel = new JPanel();
+    private final JLabel iEstado = new JLabel("Ratón fuera de Panel");
+
+    public MarcoRastreadorRaton() {
+        setTitle("Prueba de Eventos de Ratón");
+        //setLayout(new FlowLayout());
+
+        panel.setBackground(Color.RED);
+        add(panel, BorderLayout.CENTER);//Agrega panel al Frame
+        add(iEstado, BorderLayout.SOUTH);
+
+//Se aplicaran las escuchas para el panel
+        ManejadorMouse activadorEscucha = new ManejadorMouse();
+        panel.addMouseListener(activadorEscucha);
+        panel.addMouseMotionListener(activadorEscucha);
+
+    }
+
+    private class ManejadorMouse implements MouseListener, MouseMotionListener {
+//Métodos de MouseListener:
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            iEstado.setText(String.format("Se hizo click sobre el "
+                    + "panel en el punto [%d,%d]", e.getX(), e.getY()));
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+            iEstado.setText(String.format("Se oprimió click en"
+                    + " el punto [%d,%d]", e.getX(), e.getX()));
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+            iEstado.setText(String.format("El botón del ratón se "
+                    + "arrastró y se soltó en [%d,%d]",
+                     e.getX(), e.getY()));
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {            
+iEstado.setText(String.format("El mouse está dentro del panel, "
+        + "entro por [%d,%d]", e.getX(), e.getY()));
+panel.setBackground(Color.GREEN);
+        
+}
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+            iEstado.setText("El mouse está fuera del panel");
+panel.setBackground(Color.RED);
+
+        }
+//Métodos de MouseMotionListener:
+
+        @Override
+        public void mouseDragged(MouseEvent e) {
+            iEstado.setText(String.format("El mouse se arrastro hasta "
+                    + " [%d,%d]", e.getX(), e.getY()));
+
+        }
+
+        @Override
+        public void mouseMoved(MouseEvent e) {
+            iEstado.setText(String.format("El mouse se movió en ,"
+                    + " [%d,%d]", e.getX(), e.getY()));
+        }
+    }
+
+    public static void main(String[] args) {
+        MarcoRastreadorRaton ventana = new MarcoRastreadorRaton();
+        ventana.setVisible(true);
+        ventana.setDefaultCloseOperation(3);
+        ventana.setSize(300, 200);
+        ventana.setLocation(200,300);
+    }
+
+}

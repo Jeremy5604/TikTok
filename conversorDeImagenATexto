@@ -1,0 +1,66 @@
+//Sigueme en tik tok para más código :)
+
+import java.awt.Color;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import javax.swing.JFileChooser;
+
+//NOTA: PARA OBSERVAR LA IMAGEN COMPLETA EN LA CONSOLA DE NETBEANS, PRESIONA
+//Ctrl + scroll del mouse(rueda) PARA AUMENTAR Y DISMINUIR EL TAMAO DE LA LETRA
+
+public class CMD {
+    public static void main(String[] args) {
+        JFileChooser selector = new JFileChooser(
+                System.getProperty("user.dir"));
+        selector.showOpenDialog(selector);
+        String salida;
+        try {
+            InputStream input = new FileInputStream(
+                    selector.getSelectedFile());
+            BufferedImage imagen = ImageIO.read(ImageIO.createImageInputStream(input));
+            int alto = imagen.getHeight();
+            int ancho = imagen.getWidth();
+            System.out.println("Alto: " + alto + " Ancho: " + ancho);
+            for (int y = 0; y < alto; y++) {
+                for (int x = 0; x < ancho; x++) {
+                    int pixel = imagen.getRGB(x, y);
+                    Color colorpixel = new Color(pixel);
+                    int valR = colorpixel.getRed();//Retona valor de rojo en pixel
+                    int valG = colorpixel.getGreen();//Retona valor de verde en pixel
+                    int valB = colorpixel.getBlue();//Retona valor de azul en pixel
+                    //NOTA: los valores RGB de un color van desde (0,0,0)
+                    //a (255,255,255)=(Rojo,Verde,Azul)
+                    if (valR >= 100 && valG >= 100 && valB >= 100) {//Compara si 
+                        //el color no es negro
+                        if (valR >= 215 && valG >= 215 && valB >= 215) {
+                            salida = "$$";//Representa el color Blanco
+                        } else {
+                            salida = "()";//Representa cualquier color 
+                            //excepto Blanco o Negro
+                        }
+                    }
+                    else {
+                        salida = "  ";//Negro(se representa como espacio 
+                        //en blanco y por lo tanto tomara el color del fondo 
+                        //donde se muestre la ejecucion del codigo. Se observa
+                        //de diferente color en la 
+                        // terminal de netbeans que en la terminal de
+                        //Windows(Video Parte 2 en tik tok))
+                    }
+                    System.out.print(salida);
+                }
+                System.out.println("");//salto de linea al llegar al
+                //limite de ancho de la imagen
+            }
+        } catch (IOException e) {
+        } catch (NullPointerException r) {
+            System.err.println("No se selecciono ningun archivo o el "
+                    + "formato de archivo es incorrecto, solo se"
+                    + " aceptan archivos con extension .jpg o .jpeg");
+            System.exit(1);//Termina la ejecucion del programa
+        }
+    }
+}

@@ -1,0 +1,137 @@
+#SIGUEME EN TikTok(jeremy_ca) e Instagram(Jeremy_CA_) para más código :)
+
+#Uso de la clase turtle en python
+
+"""Importación:
+        Para importar esta clase hay 2 formas:
+            -from turtle import * : Si no se va a usar código orientado a objetos
+            -impor turtle: Si se va a usar código orientado a objetos
+"""
+
+"""Métodos :
+    -Ventana:
+        _setup(ancho,alto,posicionX, posicionY): Controla la posición 
+                                                de la ventana, si no se usa,
+                                                la ventana se centra automaticamente.
+                                                Se puede cambiar durante la ejecución
+                                                del programa.
+        _title(tituloDeVentana):Coloca titulo a la ventana
+
+    -Panel de Dibujo:
+        _screensize(ancho,alto):Define el tamaño del área de dibujo, por
+                                defecto es de 400 x 300 en turtles
+    -Tortuga(cursor de dibujo):
+        _forward(distancia en pixeles): Avanza una determinada cantidad de
+                                     pixeles hacia la dirección indicada 
+                                     previamente, si no se estableció una
+                                     dirección previamente, se dirigirá hacia
+                                     la derecha.
+        _backward(distancia en pixeles): Retrocede una determinada cantidad de
+                                     pixeles hacia la dirección inversa indicada 
+                                     previamente, si no se estableció una
+                                     dirección previamente, se dirigirá hacia
+                                     la izquierda.
+
+        _left(angulo): Gira la dirección del trazado según el angulo indicado
+                    hacia la izquierda
+
+        _right(angulo):  Gira la dirección del trazado según el angulo indicado
+                    hacia la derecha
+        
+        _circle(tamaño de radio, angulo): Dibuja un circulo con un
+                                            determinado tamaño de radio y
+                                            su extensión denominado por un
+                                            ángulo
+
+        _home(): Desplaza el cursor hacia el origen de coordenadas(0,0) del
+                área de dibujo
+
+        _hideturtle(): Hace invisible el cursor
+        _showturtle(): Hace visible el cursor
+        _dot((grosor,color)): Dibuja un punto circular, sus parametros
+                            son opcionales. 
+        _goto(coordenadaX,coordenadaY):Lleva al cursor hacia
+                                    las coordenadas especificadas
+                                    a partir del centro del area de
+                                    dibujo, dibujando una línea recta en 
+                                    su traslación.
+        _setx(coordenadaX):Mueve el cursor modificando la abcisa y 
+                            manteniendo constante la coordenadaY
+
+        _sety(coordenadaY):Mueve el cursor modificando la ordenada y 
+                            manteniendo constante la coordenadaX
+
+        _penup(): levanta el "lapiz" y deja de dibujar temporalmente
+                hasta que se llame al método pendown()
+        _pendown(): Baja el "lapiz" y permite volver a dibujar los trazos
+                    correspondientes
+        
+        _pensize(grosor): Permite modificar el grosor del trazo de dibujo
+
+        _pencolor(rojo,azul,verde): Modifica el color del trazo con valores
+                                    RGB(enteros desde 0-255 o decimales 
+                                    desde 0.0-1.0), para elegir el modo de
+                                    color(entero o decimal), previamente se
+                                    declaran con el método colormode.
+        _colormode(1 o 255): Con el valor 1 en este método podemos usar el
+                            método pencolor para establecer el color con valores
+                            decimales, en cambio si usamos el valor 255 como parametro
+                            en este método , podemos usar el método pencolor para 
+                            establecer el color con valores enteros.
+
+        _begin_fill(): Funciona para rellenar figuras con el color previamente
+                        seleccionado.
+        _end_fill(): Indica que las figuras deben dejar de rellenarse con
+                    el color previamente seleccionado
+
+
+        
+
+"""
+import turtle 
+import time 
+
+#Características generales
+turtle.setup(1366,720,100,100)
+turtle.screensize(1366,720)
+turtle.colormode(255)
+turtle.bgcolor(0,0,0)#fondo oscuro
+turtle.speed(0)
+turtle.hideturtle()
+turtle.pencolor(255,255,255)#trazo blanco
+
+#FIGURA 1
+turtle.penup()
+turtle.goto(-500,-200)
+turtle.pendown()
+for i in range(80):
+    turtle.circle(190-i,180)
+    turtle.left(78)
+
+
+
+#FIGURA 2
+turtle.penup()
+turtle.goto(550,-80)
+turtle.pendown()
+for i in range(80):
+    turtle.circle(190-i,180)
+    turtle.left(18)
+    turtle.left(90)
+
+
+
+#FIGURA 3
+turtle.penup()
+turtle.home()
+turtle.goto(0,-300)
+turtle.pendown()
+for i in range(40):
+    turtle.forward(100)
+    turtle.left(90)
+    turtle.circle(190-i,90)
+    turtle.left(18)
+    turtle.backward(100)
+
+time.sleep(10)#impide que se cierre el programa de golpe y
+#permite apreciar las figuras :)

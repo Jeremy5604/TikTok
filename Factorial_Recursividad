@@ -1,0 +1,24 @@
+//Revisa los demás códigos en mi cuenta de TikTok :)
+
+import java.util.Scanner;
+
+public class CalculoFactorial {
+
+    public long factorial(int n) {
+        if (n == 0) {
+            return 1;
+        } else {
+            return n * factorial(n - 1);
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        CalculoFactorial claseFactorial = new CalculoFactorial();
+        System.out.println("Ingrese un numero");
+        int n = in.nextInt();
+        for (int i = 0; i <= n; i++) {
+            System.out.printf("%d! = %d\n", i, claseFactorial.factorial(i));
+        }
+    }
+}

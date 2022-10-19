@@ -1,0 +1,131 @@
+//SIGUEME PARA MÁS CÓDIGO :)
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Point;
+import javax.swing.JPanel;
+
+public class FractalJPanel extends JPanel {
+
+    private Color color;
+    private int nivel;
+
+    /**
+     * Recibe como argumento, el nivel con el que se iniciará el panel
+     * <p>
+     * @param nivelActual
+     */
+    public FractalJPanel(int nivelActual) {
+        setBackground(Color.BLACK);//Color de fondo del panel
+        color = Color.WHITE;
+        nivel = nivelActual;
+        setPreferredSize(new Dimension(400, 400));
+
+    }
+
+    public FractalJPanel(Color colorFondo, Color colorTrazo,
+            int nivel) {
+        setBackground(colorFondo);
+        color = colorTrazo;
+        this.nivel = nivel;
+    }
+
+    /**
+     * No recibe argumento, el nivel con el que se iniciará el panel por defecto
+     * es 0, y el color de trazo es blanco
+     */
+    public FractalJPanel() {
+        setBackground(Color.BLACK);//Color de fondo del panel
+        color = Color.WHITE;
+        nivel = 0;
+        setPreferredSize(new Dimension(400, 400));
+
+    }
+
+    //Método que dibuja el fractal en forma recursiva
+    //NOTA: Para que un método sea recursivo consta de la sgte
+    //estructura:
+    /*
+    *if (caso base)
+    *    resultado base;
+    *else
+    *    caso recursivo;
+    *
+     */
+    public void dibujarFractal(int nivel, int xA, int yA, int xB,
+            int yB, Graphics g) {
+        if (nivel == 0) {
+            g.drawLine(xA, yA, xB, yB);//Dibuja una
+            //recta
+        } else {
+            //Cálculo de Punto C(punto medio entre A y B)
+            Point C = new Point((xA + xB) / 2, (yA + yB) / 2);
+            /*La línea anterior es lo mismo que colocar:
+            xC = (xA +xB)/2;
+            yC = (yA +yB)/2;
+
+            Para llamar a xC se usa C.getX() y para yC se usa C
+            .getY()
+            convertidos a enteros cada uno
+             */
+            int xC = (int) C.getX();
+            int yC = (int) C.getY();
+
+            //Cálculo de Punto D(Punto que forma un triangulo 
+            //isosceles entre A y C)
+            Point D = new Point((xA + (xC - xA) / 2 - (yC - yA)
+                    / 2), yA + (yC - yA) / 2 + (xC - xA) / 2);
+
+            /*Las 2 líneas anteriores es lo mismo que colocar:
+            xD =  xA + ( xC - xA ) / 2 - ( yC - yA ) / 2;
+            yD = yA + ( yC - yA ) / 2 + ( xC - xA ) / 2;
+            
+            Para llamar a xD se usa D.getX() y para yD se usa 
+            D.getY() convertidos a enteros cada uno
+             */
+            int xD = (int) D.getX();
+            int yD = (int) D.getY();
+
+            //Dibuja el fractal de forma recursiva.Dibuja los 
+            //segmentos DA,DC,DB
+            dibujarFractal(nivel - 1, xD, yD, xA,
+                    yA, g);
+            dibujarFractal(nivel - 1, xD, yD, xC,
+                    yC, g);
+            dibujarFractal(nivel - 1, xD, yD, xB, yB,
+                    g);
+
+        }
+
+    }
+    //Método para dibujar
+
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.setColor(color);
+        dibujarFractal(nivel, getWidth() / 2 - 200,
+                getHeight() / 2 - 200, getWidth() / 2 + 110,
+                getHeight() / 2 + 190, g);
+
+    }
+
+    //MÉTODOS SETTER Y GETTER
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public int getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(int nivel) {
+        this.nivel = nivel;
+    }
+
+}

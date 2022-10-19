@@ -1,0 +1,107 @@
+//CLASE PRINCIPAL
+
+//SIGUEME EN TIK TOK PARA MÁS VIDEOS SIMILARES :)
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JColorChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+public class Fractales extends JFrame {
+
+    private int nivelMin = 0, nivelMax = 15;
+    private Color color = Color.WHITE;
+    private final JButton cambiarColor, aumentarNivel, reducirNivel;
+    private JLabel mensajeNivel;
+    private FractalJPanel dibujoFractal;
+    private final JPanel principalJPanel, controlFractal;
+
+    //Establece la GUI
+    public Fractales() {
+
+        super("Prueba de Graficación de Fractales");
+
+        //Establece el panel de control
+        controlFractal = new JPanel();
+        controlFractal.setLayout(new GridLayout(2, 2,
+                10, 5));
+
+        //Establece los botones y sus funciones respectivamente
+        cambiarColor = new JButton("Color");
+        controlFractal.add(cambiarColor);
+        cambiarColor.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                color = JColorChooser.showDialog(
+                        Fractales.this, "Eije un color",
+                        color, true);
+                if (color == null) {
+                    color = Color.WHITE;
+                }
+                dibujoFractal.setColor(color);
+                repaint();
+            }
+        });
+
+        //Establece mensaje en el panel de Control De Fractales
+        mensajeNivel = new JLabel("Nivel 0");
+        controlFractal.add(mensajeNivel);
+
+        aumentarNivel = new JButton("Nivel ++");
+        controlFractal.add(aumentarNivel);
+        aumentarNivel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                int nivel = dibujoFractal.getNivel();
+                nivel++;
+                if (nivel >= nivelMin && nivel <= nivelMax) {
+                    dibujoFractal.setNivel(nivel);
+                    mensajeNivel.setText("Nivel: " + nivel);
+                    repaint();
+                }
+            }
+        });
+
+        reducirNivel = new JButton("Nivel--");
+        controlFractal.add(reducirNivel);
+        reducirNivel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int nivel = dibujoFractal.getNivel();
+                nivel--;
+                if (nivel >= nivelMin && nivel <= nivelMax) {
+                    dibujoFractal.setNivel(nivel);
+
+                    mensajeNivel.setText("Nivel: " + nivel);
+                    repaint();
+                }
+            }
+        });
+
+        dibujoFractal = new FractalJPanel();
+
+        principalJPanel = new JPanel();
+        principalJPanel.setLayout(new BorderLayout());
+        //principalJPanel.setBackground(Color.BLACK);
+        principalJPanel.add(controlFractal, BorderLayout.NORTH);
+        principalJPanel.add(dibujoFractal, BorderLayout.CENTER);
+        add(principalJPanel);
+
+        setLocation(200, 15);
+        setSize(500, 800); // establece el tamaño de JFrame
+        setVisible(true); // muestra JFrame
+        setDefaultCloseOperation(3);
+    }
+
+    public static void main(String[] args) {
+        Fractales ejecucion = new Fractales();
+    }
+
+}

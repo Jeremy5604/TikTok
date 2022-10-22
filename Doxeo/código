@@ -1,0 +1,84 @@
+//Sígueme en tik tok como @jeremy_ca  para más código :)
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import javax.imageio.ImageIO;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
+public class InteligenciaSuperArtificial1 extends JPanel {
+
+    Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        //Ingresa la ruta de la ubicación de donde se descargó la imágen(imagen en mi repositorio de github )
+        File meme = new File("C:\\Users\\Jerem\\Documentos\\NetBeansProjects\\CMD\\memeElegido.jpg");
+        System.out.println("¿La imagen seleccionada existe? " + meme.exists());
+
+        try {
+            InputStream entradaImagen = new FileInputStream(meme);
+            BufferedImage imagenMemoria = ImageIO.read(ImageIO.createImageInputStream(entradaImagen));
+            int ancho = imagenMemoria.getWidth();
+            int alto = imagenMemoria.getHeight();
+            setSize(new Dimension(ancho, alto));
+            for (int x = 0; x < ancho; x++) {
+                for (int y = 0; y < alto; y++) {
+                    g.setColor(new Color(imagenMemoria.getRGB(x, y)));
+                    g.fill3DRect(x, y, 1, 1, false);
+                }
+
+            }
+        } catch (NullPointerException e) {
+            JOptionPane.showConfirmDialog(null, "No se seleccionó una imágen o el archivo está corrupto", "ERROR", JOptionPane.CLOSED_OPTION, JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
+        } catch (FileNotFoundException ex) {
+        } catch (IOException ex) {
+        }
+
+        g.setFont(new Font("texto", Font.BOLD, 16));
+        g.setColor(Color.BLACK);
+        g.drawString("X: 2.28.211.234 N: 4.818851 \n  Y: -75.7141593,21 Número SS: ", 10, 50);
+        g.drawString(" 6979191519182016 CÓDIGO DE RASTREO: 8P05YX IPv6: fe80::5dcd::ef69", 10, 80);
+        g.drawString("::fb22::d9888", 10, 110);
+        g.drawString("UPNP: Habilitado DMZ: 10.112.42.15 MAC: 5A:75:3E:7E:00", 10, 140);
+        g.drawString("ISP: Ucom Unversal DNS: 8.8.8.8 ALT DNS: 1.1.1.8.1 DNS: SUFFIX: Dlink", 10, 170);
+        g.drawString("WAN: 100.23.10.15 TIPO WAN: Soldado Nat GATEWAY: 192.168.0.1", 10, 200);
+        g.drawString("MASCARILLA SUBNET: 255.255.0.255 UDP PUERTOS ABIERTOS: 8080 80 ", 10, 230);
+        g.drawString("TCP PUERTOS ABIERTOS: 443", 10, 260);
+        g.drawString("RUTA DEL VENDEDOR: ERICCSON VENDEDOR DE DISPOSITIVOS: WIN31-X", 10, 290);
+        g.drawString("TIPO DE CONEXIÓN: Ethernet ICMP HOPS:{ 192.168.01 192.168.1.1  ", 10, 320);
+        g.drawString("100.73.43.4 host-132.12.32.167.ucom.com host-66.120.12.111", 10, 350);
+        g.drawString("ucom.com 36.134.67.189 216.239.78.111 sof02s32-in-f14.1e100.net", 10, 380);
+        g.drawString("TOTAL HOPS: 8 [HTTP] 192.168.3.1:80 => 92.28.211.234:80 ", 10, 410);
+        g.drawString(" [HTTP] 192.168.3.1:443 => 92.28.211.234:443 ", 10, 440);
+        g.drawString("[UDP] 192.168.0.1:788 => 192.168.1.1:6657 [TCP] 192.168.1.1:67891", 10, 470);
+        g.drawString("=> 92.28.211.234:345\n [TCP] 192.168.54.43.7777", 10, 500);
+    }
+    
+    public static void main(String[] args) {
+        JFrame ventana = new JFrame("Inteligencia Super Artificial");
+        InteligenciaSuperArtificial1 panel = new InteligenciaSuperArtificial1();
+        JOptionPane.showInputDialog(null, "¿Cual es tu nombre?",
+                "Inteligencia Super Artificial", JOptionPane.INFORMATION_MESSAGE);
+        ventana.setLocation((panel.pantalla.width / 2) - 300, (panel.pantalla.height / 2) - 300);
+        ventana.setSize(600, 550);//Aqui puedes modificar el tamaño de la ventana para adecuarse a la imagen que usarás
+        ventana.setVisible(true);
+        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ventana.add(panel);
+
+    }
+
+}

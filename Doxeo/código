@@ -25,7 +25,7 @@ public class InteligenciaSuperArtificial1 extends JPanel {
         super.paintComponent(g);
 
         //Ingresa la ruta de la ubicación de donde se descargó la imágen(imagen en mi repositorio de github )
-        File meme = new File("C:\\Users\\Jerem\\Documentos\\NetBeansProjects\\CMD\\memeElegido.jpg");
+        File meme = new File("C:\\Users\\Jerem\\Documentos\\NetBeansProjects\\CMD\\memeElegido.jpg");//RUTA DE IMÁGEN
         System.out.println("¿La imagen seleccionada existe? " + meme.exists());
 
         try {
